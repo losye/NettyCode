@@ -71,6 +71,7 @@ public static final Cumulator MERGE_CUMULATOR = new Cumulator() {
 
                 int size = out.size();
                 decodeWasNull = !out.insertSinceRecycled();
+                //Recycle the array which will clear it and null out all entries in the internal storage.
                 fireChannelRead(ctx, out, size);
                 out.recycle();
             }
@@ -100,6 +101,7 @@ public static final Cumulator MERGE_CUMULATOR = new Cumulator() {
                 }
 
                 int oldInputLength = in.readableBytes();
+                //由具体字段实现如何切分分割Buffer
                 decode(ctx, in, out);
 
                 // Check if this handler was removed before continuing the loop.
